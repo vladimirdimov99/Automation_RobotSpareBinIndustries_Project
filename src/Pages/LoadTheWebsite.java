@@ -9,5 +9,4 @@ public class LoadTheWebsite {
         driver.get(websiteURL);
         driver.manage().window().maximize();
     }
-
 }
