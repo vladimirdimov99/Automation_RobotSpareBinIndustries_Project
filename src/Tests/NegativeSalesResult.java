@@ -42,5 +42,7 @@ public class NegativeSalesResult {
     }
 
     @AfterTest
-    public void closeTheWebsite() {driver.quit();}
+    public void closeTheWebsite() {
+        driver.quit();
+    }
 }
