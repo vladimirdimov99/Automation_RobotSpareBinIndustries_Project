@@ -41,6 +41,7 @@ public class PositiveSalesResult {
         Assert.assertEquals(resultMessage, "A positive result. Well done!");
     }
 
+
     @AfterTest
     public void closeTheWebsite() {driver.quit();}
 }
