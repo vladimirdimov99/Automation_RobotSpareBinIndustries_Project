@@ -42,7 +42,5 @@ public class PositiveSalesResult {
     }
 
     @AfterTest
-    public void closeTheWebsite() {
-        driver.quit();
-    }
+    public void closeTheWebsite() {driver.quit();}
 }
