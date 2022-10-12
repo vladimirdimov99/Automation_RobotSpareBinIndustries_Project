@@ -6,14 +6,19 @@ import Pages.SalesForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class NegativeSalesResult {
     WebDriver driver;
     String currentURL = "";
+    Duration timeout = Duration.ofSeconds(3);
 
     @BeforeTest
     public void OpenTheWebsite(){
@@ -31,6 +36,15 @@ public class NegativeSalesResult {
     public void logInToTheWebsite(){
         LogInForm logInForm = new LogInForm(driver);
         logInForm.enterCredentialsToLogInAndClickLogInButton();
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form")));
+        Boolean isVisible;
+        try{
+            isVisible = driver.findElement(By.id("sales-form")).isDisplayed();
+        }
+        catch(Exception e){
+            isVisible = false;
+        }
+        Assert.assertEquals(isVisible, true);
     }
 
     @Test(priority = 3)
