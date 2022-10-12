@@ -57,4 +57,30 @@ public class SalesForm {
     public void deleteAllSalesEntries(){
         driver.findElement(deleteAllSalesEntriesButton).click();
     }
+
+    public void doASaleWithAnEmptyInputField(){
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname")));
+        driver.findElement(firstName).click();
+        driver.findElement(firstName).sendKeys("");
+        driver.findElement(lastName).click();
+        driver.findElement(lastName).sendKeys("Dimov");
+        driver.findElement(salesTargetDropMenu).click();
+        driver.findElement(selectSalesTargetPrice).click();
+        driver.findElement(salesResultField).click();
+        driver.findElement(salesResultField).sendKeys("50000");
+        driver.findElement(submitButton).click();
+    }
+
+    public void checkIfSalesSummaryAndSalesResultElementsAppear(){
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname")));
+        driver.findElement(firstName).click();
+        driver.findElement(firstName).sendKeys("Vladimir");
+        driver.findElement(lastName).click();
+        driver.findElement(lastName).sendKeys("Dimov");
+        driver.findElement(salesTargetDropMenu).click();
+        driver.findElement(selectSalesTargetPrice).click();
+        driver.findElement(salesResultField).click();
+        driver.findElement(salesResultField).sendKeys("10000");
+        driver.findElement(submitButton).click();
+    }
 }
