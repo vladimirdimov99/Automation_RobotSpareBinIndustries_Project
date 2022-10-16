@@ -5,7 +5,6 @@ import Pages.LogInForm;
 import Pages.SalesForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,6 +18,7 @@ public class DeleteAllSalesEntries {
     WebDriver driver;
     String currentURL = "";
     Duration timeout = Duration.ofSeconds(3);
+
     @BeforeTest
     public void OpenTheWebsite(){
         driver = new ChromeDriver();

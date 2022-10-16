@@ -8,7 +8,7 @@ public class LogInForm {
 
     By username = By.id("username");
     By password = By.id("password");
-    By logInButton = By.xpath("//*[text()='Log in']");
+    By logInButton = By.xpath("//button[@type='submit']");
 
     public LogInForm(WebDriver driver) {this.driver = driver;}
 

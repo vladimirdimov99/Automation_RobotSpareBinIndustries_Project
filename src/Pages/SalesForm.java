@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SalesForm {
     WebDriver driver;
@@ -17,10 +19,12 @@ public class SalesForm {
     By salesTargetDropMenu = By.id("salestarget");
     By selectSalesTargetPrice = By.xpath("//*[text()='$20,000']");
     By salesResultField = By.id("salesresult");
-    By submitButton = By.xpath("//*[text()='Submit']");
+    By submitButton = By.xpath("//button[@type='submit']");
     By showPerformanceButton = By.xpath("//*[text()='Show performance']");
     By resultMessage = By.className("performance");
     By deleteAllSalesEntriesButton = By.xpath("//*[text()='Delete all sales entries']");
+
+    public List<String> inputs = new ArrayList<>();
 
     public void positiveSalesResultAndCheckPerformanceMessage(){
         new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname")));
@@ -77,8 +81,10 @@ public class SalesForm {
         driver.findElement(firstName).sendKeys("Vladimir");
         driver.findElement(lastName).click();
         driver.findElement(lastName).sendKeys("Dimov");
+        inputs.add("Vladimir Dimov");
         driver.findElement(salesTargetDropMenu).click();
         driver.findElement(selectSalesTargetPrice).click();
+        inputs.add(driver.findElement(selectSalesTargetPrice).getText());
         driver.findElement(salesResultField).click();
         driver.findElement(salesResultField).sendKeys("10000");
         driver.findElement(submitButton).click();
