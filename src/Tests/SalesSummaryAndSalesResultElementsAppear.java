@@ -61,8 +61,8 @@ public class SalesSummaryAndSalesResultElementsAppear {
         Boolean isSalesSummaryElementDisplayed;
         Boolean isSalesResultElementDisplayed;
         try{
-            isSalesSummaryElementDisplayed = driver.findElement(By.xpath("//div[contains(@class,'sales-summary')]")).isDisplayed();
-            isSalesResultElementDisplayed = driver.findElement(By.id("sales-results")).isDisplayed();
+            isSalesSummaryElementDisplayed = driver.findElement(By.xpath("//div[contains(@class,'sales-summary')]")).isDisplayed(); // Locator
+            isSalesResultElementDisplayed = driver.findElement(By.id("sales-results")).isDisplayed();  // Locator
         }
         catch (Exception e){
             isSalesSummaryElementDisplayed = false;
@@ -73,8 +73,8 @@ public class SalesSummaryAndSalesResultElementsAppear {
         Assert.assertTrue(isSalesResultElementDisplayed);
 
         //Check The Sales Result
-        inputs.add(driver.findElement(By.xpath("//*[text()='Vladimir']")).getText());
-        inputs.add(driver.findElement(By.xpath("//*[text()='$20,000']")).getText());
+        inputs.add(driver.findElement(By.xpath("//*[text()='Vladimir']")).getText()); // Locator
+        inputs.add(driver.findElement(By.xpath("//*[text()='$20,000']")).getText()); // Locator
         Assert.assertEquals(salesForm.inputs, inputs);
     }
 

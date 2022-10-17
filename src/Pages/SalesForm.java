@@ -81,7 +81,7 @@ public class SalesForm {
         driver.findElement(firstName).sendKeys("Vladimir");   // Make entered values as variables of the class
         driver.findElement(lastName).click();
         driver.findElement(lastName).sendKeys("Dimov");   // Make entered values as variables of the class
-        inputs.add("Vladimir Dimov");   // Make entered values as variables of the class
+        inputs.add("Vladimir Dimov");   // Make entered values as variables of the class or dynamically build a string
         driver.findElement(salesTargetDropMenu).click();
         driver.findElement(selectSalesTargetPrice).click();
         inputs.add(driver.findElement(selectSalesTargetPrice).getText());
