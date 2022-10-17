@@ -14,9 +14,9 @@ public class LogInForm {
 
     public void enterCredentialsToLogInAndClickLogInButton(){
         driver.findElement(username).click();
-        driver.findElement(username).sendKeys("maria");
+        driver.findElement(username).sendKeys("maria");  // Make entered values as variables of the class
         driver.findElement(password).click();
-        driver.findElement(password).sendKeys("thoushallnotpass");
+        driver.findElement(password).sendKeys("thoushallnotpass");  // Make entered values as variables of the class
         driver.findElement(logInButton).click();
     }
 }

@@ -25,13 +25,13 @@ public class DeleteAllSalesEntries {
         new LoadTheWebsite().LoadTheWebsite(driver);
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1) // Exists more than once - DRY
     public void checkIfTheWebsiteIsCorrect(){
         currentURL = driver.getCurrentUrl();
         Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/#/");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2) // Exists more than once - DRY
     public void logInToTheWebsite(){
         LogInForm logInForm = new LogInForm(driver);
         logInForm.enterCredentialsToLogInAndClickLogInButton();
@@ -43,10 +43,11 @@ public class DeleteAllSalesEntries {
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        //Assert.assertEquals(isVisible, true); // Ambiguous method call
+        Assert.assertTrue(isVisible,"[Error] false");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3) // Exists more than once - DRY
     public void typeNameAndSelectSalesTargetAndSalesResultForPositiveResult(){
         SalesForm salesForm = new SalesForm(driver);
         salesForm.positiveSalesResultAndCheckPerformanceMessage();
@@ -54,7 +55,7 @@ public class DeleteAllSalesEntries {
         Assert.assertEquals(resultMessage, "A positive result. Well done!");
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4) // Exists more than once - DRY
     public void typeNameAndSelectSalesTargetAndSalesResultForNegativeResult(){
         SalesForm salesForm = new SalesForm(driver);
         salesForm.negativeSalesResultAndCheckPerformanceMessage();
@@ -62,19 +63,21 @@ public class DeleteAllSalesEntries {
         Assert.assertEquals(resultMessage, "Hmm. Did not quite make it.");
     }
 
-    @Test(priority = 5)
+    @Test(priority = 5) // Can't exist on its own - to be fixed
     public void deleteAllSalesEntries(){
+        // neither there is a description of the method logic nor comments, don't know what to expect and how it should perform
         SalesForm salesForm = new SalesForm(driver);
         salesForm.deleteAllSalesEntries();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'sales-summary')]")));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'sales-summary')]"))); // Locator
         Boolean isTrue;
         try{
-            isTrue = driver.findElement(By.xpath("//div[contains(@class,'sales-summary')]")).isDisplayed();
+            isTrue = driver.findElement(By.xpath("//div[contains(@class,'sales-summary')]")).isDisplayed();  // Locator
         }
         catch(Exception e){
             isTrue = false;
         }
-        Assert.assertEquals(isTrue, false);
+        // Ambiguous method call
+        Assert.assertFalse(isTrue);
     }
 
     @AfterTest

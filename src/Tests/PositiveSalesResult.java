@@ -36,15 +36,16 @@ public class PositiveSalesResult {
     public void logInToTheWebsite(){
         LogInForm logInForm = new LogInForm(driver);
         logInForm.enterCredentialsToLogInAndClickLogInButton();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form")));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form"))); // Fix the locator here - locators should be outside of the methods and in the beginning of a class/module
         Boolean isVisible;
         try{
-            isVisible = driver.findElement(By.id("sales-form")).isDisplayed();
+            isVisible = driver.findElement(By.id("sales-form")).isDisplayed(); // Move the locator, same as above
         }
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        //Assert.assertEquals(isVisible, true); // Ambiguous method call
+        Assert.assertTrue(isVisible,"[Error] false");
     }
 
     @Test(priority = 3)

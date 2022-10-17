@@ -39,7 +39,7 @@ public class SalesForm {
         driver.findElement(submitButton).click();
         new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(showPerformanceButton));
         driver.findElement(showPerformanceButton).click();
-        driver.findElement(resultMessage).getText();
+        driver.findElement(resultMessage).getText(); // No point of that piece
     }
 
     public void negativeSalesResultAndCheckPerformanceMessage(){
@@ -55,7 +55,7 @@ public class SalesForm {
         driver.findElement(submitButton).click();
         new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(showPerformanceButton));
         driver.findElement(showPerformanceButton).click();
-        driver.findElement(resultMessage).getText();
+        driver.findElement(resultMessage).getText(); // No point of that piece
     }
 
     public void deleteAllSalesEntries(){
@@ -63,30 +63,30 @@ public class SalesForm {
     }
 
     public void doASaleWithAnEmptyInputField(){
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname")));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname"))); // Locator
         driver.findElement(firstName).click();
-        driver.findElement(firstName).sendKeys("");
+        driver.findElement(firstName).sendKeys("");   // Make entered values as variables of the class
         driver.findElement(lastName).click();
-        driver.findElement(lastName).sendKeys("Dimov");
+        driver.findElement(lastName).sendKeys("Dimov");  // Make entered values as variables of the class
         driver.findElement(salesTargetDropMenu).click();
         driver.findElement(selectSalesTargetPrice).click();
         driver.findElement(salesResultField).click();
-        driver.findElement(salesResultField).sendKeys("50000");
+        driver.findElement(salesResultField).sendKeys("50000");   // Make entered values as variables of the class
         driver.findElement(submitButton).click();
     }
 
     public void checkIfSalesSummaryAndSalesResultElementsAppear(){
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname")));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.id("firstname"))); // Locator
         driver.findElement(firstName).click();
-        driver.findElement(firstName).sendKeys("Vladimir");
+        driver.findElement(firstName).sendKeys("Vladimir");   // Make entered values as variables of the class
         driver.findElement(lastName).click();
-        driver.findElement(lastName).sendKeys("Dimov");
-        inputs.add("Vladimir Dimov");
+        driver.findElement(lastName).sendKeys("Dimov");   // Make entered values as variables of the class
+        inputs.add("Vladimir Dimov");   // Make entered values as variables of the class
         driver.findElement(salesTargetDropMenu).click();
         driver.findElement(selectSalesTargetPrice).click();
         inputs.add(driver.findElement(selectSalesTargetPrice).getText());
         driver.findElement(salesResultField).click();
-        driver.findElement(salesResultField).sendKeys("10000");
+        driver.findElement(salesResultField).sendKeys("10000");   // Make entered values as variables of the class
         driver.findElement(submitButton).click();
     }
 }

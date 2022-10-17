@@ -25,25 +25,26 @@ public class NegativeSalesResult {
         new LoadTheWebsite().LoadTheWebsite(driver);
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1) // That one is repeated twice in both - positive and negative tests; DRY!
     public void checkIfTheWebsiteIsCorrect(){
         currentURL = driver.getCurrentUrl();
         Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/#/");
     }
 
     @Test(priority = 2)
-    public void logInToTheWebsite(){
+    public void logInToTheWebsite(){ // You already have a positive login test...
         LogInForm logInForm = new LogInForm(driver);
         logInForm.enterCredentialsToLogInAndClickLogInButton();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form")));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form"))); // Fix the locator here - locators should be outside of the methods and in the beginning of a class/module
         Boolean isVisible;
         try{
-            isVisible = driver.findElement(By.id("sales-form")).isDisplayed();
+            isVisible = driver.findElement(By.id("sales-form")).isDisplayed(); // Move the locator, same as above
         }
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        //Assert.assertEquals(isVisible, true); // Ambiguous method call
+        Assert.assertTrue(isVisible,"[Error] false");
     }
 
     @Test(priority = 3)

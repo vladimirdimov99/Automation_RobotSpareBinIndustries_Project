@@ -49,7 +49,8 @@ public class SalesSummaryAndSalesResultElementsAppear {
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        //Assert.assertEquals(isVisible, true); // Ambiguous method call
+        Assert.assertTrue(isVisible,"[Error] false");
     }
 
     //The elements Sales Summary and Sales Result should not be displayed if it's the first sale or the previous sales were deleted.
@@ -67,8 +68,9 @@ public class SalesSummaryAndSalesResultElementsAppear {
             isSalesSummaryElementDisplayed = false;
             isSalesResultElementDisplayed = false;
         }
-        Assert.assertEquals(isSalesSummaryElementDisplayed, true);
-        Assert.assertEquals(isSalesResultElementDisplayed, true);
+        // Ambiguous method call
+        Assert.assertTrue(isSalesSummaryElementDisplayed);
+        Assert.assertTrue(isSalesResultElementDisplayed);
 
         //Check The Sales Result
         inputs.add(driver.findElement(By.xpath("//*[text()='Vladimir']")).getText());

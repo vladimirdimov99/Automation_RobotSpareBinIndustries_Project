@@ -44,7 +44,8 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty {
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        //Assert.assertEquals(isVisible, true); // Ambiguous method call
+        Assert.assertTrue(isVisible,"[Error] false");
     }
 
     @Test(priority = 3)
@@ -58,7 +59,7 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty {
         catch (Exception e){
             isErrorMessageDisplayed = false;
         }
-        Assert.assertEquals(isErrorMessageDisplayed, true);
+        Assert.assertTrue(isErrorMessageDisplayed);
     }
 
     @AfterTest
