@@ -17,6 +17,8 @@ import java.time.Duration;
 public class EnterSalesFormDataAndCheckThePerformanceMessage {
     WebDriver driver;
     String currentURL = "";
+    String expectedURL = "";
+    String performanceMessage = "";
     Duration timeout = Duration.ofSeconds(3);
 
     @BeforeTest
@@ -28,7 +30,8 @@ public class EnterSalesFormDataAndCheckThePerformanceMessage {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect(){
         currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/#/");
+        expectedURL = "https://robotsparebinindustries.com/#/";
+        Assert.assertEquals(currentURL, expectedURL);
     }
 
     @Test(priority = 2)
@@ -52,8 +55,9 @@ public class EnterSalesFormDataAndCheckThePerformanceMessage {
     public void enterSalesFormDataAndCheckThePerformanceMessage(){
         SalesForm salesForm = new SalesForm(driver);
         salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
-        String resultMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
-        Assert.assertEquals(resultMessage, "A positive result. Well done!");
+        salesForm.checkPerformanceMessage();
+        performanceMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
+        Assert.assertEquals(performanceMessage, "A positive result. Well done!");
     }
 
     @AfterTest

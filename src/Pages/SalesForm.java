@@ -23,6 +23,7 @@ public class SalesForm {
     public By errorMessageLocator = By.xpath("//*[text()='Please fill out this field.']");
     public By salesSummaryPanelLocator = By.xpath("//div[contains(@class,'sales-summary')]");
     public By salesResultPanelLocator = By.id("sales-results");
+
     public SalesForm(WebDriver driver) {this.driver = driver;}
 
     public void enterSalesFormDataAndClickSubmit(String firstName, String lastName, String salesResult){
@@ -45,18 +46,5 @@ public class SalesForm {
 
     public void deleteAllSalesEntries(){
         driver.findElement(deleteAllSalesEntriesButton).click();
-    }
-
-    public void doASaleWithAnEmptyInputField(){
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(firstNameInputFieldLocator));
-        driver.findElement(firstNameInputFieldLocator).click();
-        driver.findElement(firstNameInputFieldLocator).sendKeys("");
-        driver.findElement(lastNameInputFieldLocator).click();
-        driver.findElement(lastNameInputFieldLocator).sendKeys("Dimov");
-        driver.findElement(salesTargetDropMenu).click();
-        driver.findElement(selectSalesTargetPrice).click();
-        driver.findElement(salesResultField).click();
-        driver.findElement(salesResultField).sendKeys("50000");
-        driver.findElement(submitButton).click();
     }
 }

@@ -16,6 +16,8 @@ import java.time.Duration;
 public class DeleteAllSalesEntries {
     WebDriver driver;
     String currentURL = "";
+    String expectedURL = "";
+    String performanceMessage = "";
     Duration timeout = Duration.ofSeconds(3);
 
     @BeforeTest
@@ -27,7 +29,8 @@ public class DeleteAllSalesEntries {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect(){
         currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/#/");
+        expectedURL = "https://robotsparebinindustries.com/#/";
+        Assert.assertEquals(currentURL, expectedURL);
     }
 
     @Test(priority = 2)
@@ -53,11 +56,13 @@ public class DeleteAllSalesEntries {
         // Check for Positive Result
         salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
         salesForm.checkPerformanceMessage();
-        Assert.assertEquals(salesForm.performanceMessageLocator, "A positive result. Well done!");
+        performanceMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
+        Assert.assertEquals(performanceMessage, "A positive result. Well done!");
         // Check for Negative Result
         salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "15000");
         salesForm.checkPerformanceMessage();
-        Assert.assertEquals(salesForm.performanceMessageLocator, "Well. It was a nice attempt. I guess?");
+        performanceMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
+        Assert.assertEquals(performanceMessage, "Well. It was a nice attempt. I guess?");
     }
 
     @Test(priority = 4)
@@ -73,7 +78,7 @@ public class DeleteAllSalesEntries {
         catch(Exception e){
             isTrue = false;
         }
-        Assert.assertFalse(isTrue, "The Sales Summary Panel is not displayed !!!");
+        Assert.assertFalse(isTrue, "The Sales Summary Panel is displayed !!!");
     }
 
     @AfterTest

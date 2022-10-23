@@ -18,6 +18,7 @@ import java.time.Duration;
 public class ErrorMessagePopsUpIfInputFieldIsEmpty {
     WebDriver driver;
     String currentURL = "";
+    String expectedURL = "";
     Duration timeout = Duration.ofSeconds(3);
 
     @BeforeTest
@@ -29,7 +30,8 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect(){
         currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/#/");
+        expectedURL = "https://robotsparebinindustries.com/#/";
+        Assert.assertEquals(currentURL, expectedURL);
     }
 
     @Test(priority = 2)
@@ -52,7 +54,7 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty {
     @Test(priority = 3)
     public void checkIfErrorMessagesPopsUpIfInputFieldIsEmpty(){
         SalesForm salesForm = new SalesForm(driver);
-        salesForm.doASaleWithAnEmptyInputField();
+        salesForm.enterSalesFormDataAndClickSubmit("", "Dimov", "50000");
 
         Boolean isErrorMessageDisplayed;
         try{

@@ -13,9 +13,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.time.Duration;
 
-public class SalesSummaryAndSalesResultElementsAppear {
+public class SalesSummaryAndSalesResultPanelsAppear {
     WebDriver driver;
     String currentURL = "";
+    String expectedURL = "";
     Duration timeout = Duration.ofSeconds(3);
 
     @BeforeTest
@@ -27,7 +28,8 @@ public class SalesSummaryAndSalesResultElementsAppear {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect(){
         currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/#/");
+        expectedURL = "https://robotsparebinindustries.com/#/";
+        Assert.assertEquals(currentURL, expectedURL);
     }
 
     @Test(priority = 2)
@@ -52,12 +54,13 @@ public class SalesSummaryAndSalesResultElementsAppear {
         SalesForm salesForm = new SalesForm(driver);
         salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
         currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, "https://robotsparebinindustries.com/?firstname=Vladimir&lastname=Dimov&salesresult=50000#/");
+        expectedURL = "https://robotsparebinindustries.com/?firstname=Vladimir&lastname=Dimov&salesresult=50000#/";
+        Assert.assertEquals(currentURL, expectedURL);
     }
 
     //The Sales Summary and Sales Result Panels should be displayed when a sale is made.
     @Test(priority = 4)
-    public void checkIfSalesSummaryAndSalesResultElementsAppear(){
+    public void checkIfSalesSummaryAndSalesResultPanelsAppear(){
         SalesForm salesForm = new SalesForm(driver);
         Boolean isSalesSummaryPanelDisplayed;
         Boolean isSalesResultPanelDisplayed;
