@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.time.Duration;
 
-public class DeleteAllSalesEntries {
+public class CheckIfHidePerformanceButtonWorks {
     WebDriver driver;
     String currentURL = "";
     String expectedURL = "";
@@ -51,14 +51,8 @@ public class DeleteAllSalesEntries {
     }
 
     @Test(priority = 3)
-    public void enterSalesFormDataAndCheckThePerformanceMessage(){
+    public void enterSalesFormDataAndCheckPerformanceMessage(){
         SalesForm salesForm = new SalesForm(driver);
-        // Check for Positive Result
-        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
-        salesForm.checkPerformanceMessage();
-        performanceMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
-        Assert.assertEquals(performanceMessage, "A positive result. Well done!");
-        // Check for Negative Result
         salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "15000");
         salesForm.checkPerformanceMessage();
         performanceMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
@@ -66,21 +60,22 @@ public class DeleteAllSalesEntries {
     }
 
     @Test(priority = 4)
-    public void deleteAllSalesEntries(){
+    public void clickHidePerformanceButtonAndCheckIfMessagesHide(){
         SalesForm salesForm = new SalesForm(driver);
-        salesForm.deleteAllSalesEntries();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOfElementLocated(salesForm.salesSummaryPanelLocator));
+        driver.findElement(salesForm.hidePerformanceButton).click();
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOfElementLocated(salesForm.performanceMessageLocator));
 
         Boolean isVisible;
         try{
-            isVisible = driver.findElement(salesForm.salesSummaryPanelLocator).isDisplayed();
+            isVisible = driver.findElement(salesForm.performanceMessageLocator).isDisplayed();
         }
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertFalse(isVisible, "The Sales Summary Panel is displayed !!!");
+        Assert.assertFalse(isVisible, "The Performance Message is displayed !!!");
     }
 
     @AfterTest
     public void closeTheWebsite() {driver.quit();}
 }
+

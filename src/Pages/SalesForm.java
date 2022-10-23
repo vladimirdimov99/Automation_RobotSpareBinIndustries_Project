@@ -16,7 +16,8 @@ public class SalesForm {
     public By selectSalesTargetPrice = By.xpath("//*[text()='$20,000']");
     By salesResultField = By.id("salesresult");
     By submitButton = By.cssSelector("button[type='submit']");
-    By showPerformanceButton = By.xpath("//*[text()='Show performance']");
+    public By performanceButton = By.xpath("//*[text()='Show performance']");
+    public By hidePerformanceButton = By.xpath("//*[text()='Hide performance']");
     By deleteAllSalesEntriesButton = By.xpath("//*[text()='Delete all sales entries']");
     public By salesFormPanelLocator = By.id("sales-form");
     public By performanceMessageLocator = By.className("performance");
@@ -40,8 +41,8 @@ public class SalesForm {
     }
 
     public void checkPerformanceMessage(){
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(showPerformanceButton));
-        driver.findElement(showPerformanceButton).click();
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(performanceButton));
+        driver.findElement(performanceButton).click();
     }
 
     public void deleteAllSalesEntries(){
