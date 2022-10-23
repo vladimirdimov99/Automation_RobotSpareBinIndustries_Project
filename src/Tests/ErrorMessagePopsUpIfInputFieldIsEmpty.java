@@ -35,30 +35,33 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty {
     @Test(priority = 2)
     public void logInToTheWebsite(){
         LogInForm logInForm = new LogInForm(driver);
-        logInForm.enterCredentialsToLogInAndClickLogInButton();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form")));
+        logInForm.enterCredentialsToLogInAndClickLogInButton("maria", "thoushallnotpass");
+        SalesForm salesForm = new SalesForm(driver);
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(salesForm.salesFormPanelLocator));
+
         Boolean isVisible;
         try{
-            isVisible = driver.findElement(By.id("sales-form")).isDisplayed();
+            isVisible = driver.findElement(salesForm.salesFormPanelLocator).isDisplayed();
         }
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        Assert.assertTrue(isVisible, "The Sales Form is not displayed!!!");
     }
 
     @Test(priority = 3)
     public void checkIfErrorMessagesPopsUpIfInputFieldIsEmpty(){
         SalesForm salesForm = new SalesForm(driver);
         salesForm.doASaleWithAnEmptyInputField();
+
         Boolean isErrorMessageDisplayed;
         try{
-            isErrorMessageDisplayed = driver.findElement(By.xpath("//*[text()='Please fill out this field.']")).isDisplayed();
+            isErrorMessageDisplayed = driver.findElement(salesForm.errorMessageLocator).isDisplayed();
         }
         catch (Exception e){
             isErrorMessageDisplayed = false;
         }
-        Assert.assertEquals(isErrorMessageDisplayed, true);
+        Assert.assertTrue(isErrorMessageDisplayed, "The Error Message is not displayed !!!");
     }
 
     @AfterTest

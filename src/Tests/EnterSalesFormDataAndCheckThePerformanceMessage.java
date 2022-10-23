@@ -3,7 +3,6 @@ package Tests;
 import Pages.SalesForm;
 import Pages.LoadTheWebsite;
 import Pages.LogInForm;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,7 +14,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class PositiveSalesResult {
+public class EnterSalesFormDataAndCheckThePerformanceMessage {
     WebDriver driver;
     String currentURL = "";
     Duration timeout = Duration.ofSeconds(3);
@@ -35,23 +34,25 @@ public class PositiveSalesResult {
     @Test(priority = 2)
     public void logInToTheWebsite(){
         LogInForm logInForm = new LogInForm(driver);
-        logInForm.enterCredentialsToLogInAndClickLogInButton();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form")));
+        logInForm.enterCredentialsToLogInAndClickLogInButton("maria", "thoushallnotpass");
+        SalesForm salesForm = new SalesForm(driver);
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(salesForm.salesFormPanelLocator));
+
         Boolean isVisible;
         try{
-            isVisible = driver.findElement(By.id("sales-form")).isDisplayed();
+            isVisible = driver.findElement(salesForm.salesFormPanelLocator).isDisplayed();
         }
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        Assert.assertTrue(isVisible, "Sales form is not displayed!!!");
     }
 
     @Test(priority = 3)
-    public void typeNameAndSelectSalesTargetAndSalesResultForPositiveResult(){
+    public void enterSalesFormDataAndCheckThePerformanceMessage(){
         SalesForm salesForm = new SalesForm(driver);
-        salesForm.positiveSalesResultAndCheckPerformanceMessage();
-        String resultMessage = driver.findElement(By.className("performance")).getText();
+        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
+        String resultMessage = driver.findElement(salesForm.performanceMessageLocator).getText();
         Assert.assertEquals(resultMessage, "A positive result. Well done!");
     }
 

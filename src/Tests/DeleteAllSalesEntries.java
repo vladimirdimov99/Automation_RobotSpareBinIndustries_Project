@@ -3,7 +3,6 @@ package Tests;
 import Pages.LoadTheWebsite;
 import Pages.LogInForm;
 import Pages.SalesForm;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,47 +33,47 @@ public class DeleteAllSalesEntries {
     @Test(priority = 2)
     public void logInToTheWebsite(){
         LogInForm logInForm = new LogInForm(driver);
-        logInForm.enterCredentialsToLogInAndClickLogInButton();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("sales-form")));
+        SalesForm salesForm = new SalesForm(driver);
+        logInForm.enterCredentialsToLogInAndClickLogInButton("maria", "thoushallnotpass");
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(salesForm.salesFormPanelLocator));
+
         Boolean isVisible;
         try{
-            isVisible = driver.findElement(By.id("sales-form")).isDisplayed();
+            isVisible = driver.findElement(salesForm.salesFormPanelLocator).isDisplayed();
         }
         catch(Exception e){
             isVisible = false;
         }
-        Assert.assertEquals(isVisible, true);
+        Assert.assertTrue(isVisible, "Sales Form Panel is not displayed !!!");
     }
 
     @Test(priority = 3)
-    public void typeNameAndSelectSalesTargetAndSalesResultForPositiveResult(){
+    public void enterSalesFormDataAndCheckPerformanceMessage(){
         SalesForm salesForm = new SalesForm(driver);
-        salesForm.positiveSalesResultAndCheckPerformanceMessage();
-        String resultMessage = driver.findElement(By.className("performance")).getText();
-        Assert.assertEquals(resultMessage, "A positive result. Well done!");
+        // Check for Positive Result
+        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
+        salesForm.checkPerformanceMessage();
+        Assert.assertEquals(salesForm.performanceMessageLocator, "A positive result. Well done!");
+        // Check for Negative Result
+        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "15000");
+        salesForm.checkPerformanceMessage();
+        Assert.assertEquals(salesForm.performanceMessageLocator, "Well. It was a nice attempt. I guess?");
     }
 
     @Test(priority = 4)
-    public void typeNameAndSelectSalesTargetAndSalesResultForNegativeResult(){
-        SalesForm salesForm = new SalesForm(driver);
-        salesForm.negativeSalesResultAndCheckPerformanceMessage();
-        String resultMessage = driver.findElement(By.className("performance")).getText();
-        Assert.assertEquals(resultMessage, "Hmm. Did not quite make it.");
-    }
-
-    @Test(priority = 5)
     public void deleteAllSalesEntries(){
         SalesForm salesForm = new SalesForm(driver);
         salesForm.deleteAllSalesEntries();
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'sales-summary')]")));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOfElementLocated(salesForm.salesSummaryPanelLocator));
+
         Boolean isTrue;
         try{
-            isTrue = driver.findElement(By.xpath("//div[contains(@class,'sales-summary')]")).isDisplayed();
+            isTrue = driver.findElement(salesForm.salesSummaryPanelLocator).isDisplayed();
         }
         catch(Exception e){
             isTrue = false;
         }
-        Assert.assertEquals(isTrue, false);
+        Assert.assertFalse(isTrue, "The Sales Summary Panel is not displayed !!!");
     }
 
     @AfterTest
