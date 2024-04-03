@@ -1,13 +1,14 @@
 package Pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.LoadTheDriver;
+
 import java.time.Duration;
 
-public class SalesForm {
-    WebDriver driver;
+public class SalesForm extends LoadTheDriver {
+
     Duration timeout = Duration.ofSeconds(3);
 
     By firstNameInputFieldLocator = By.id("firstname");
@@ -25,27 +26,25 @@ public class SalesForm {
     public By salesSummaryPanelLocator = By.xpath("//div[contains(@class,'sales-summary')]");
     public By salesResultPanelLocator = By.id("sales-results");
 
-    public SalesForm(WebDriver driver) {this.driver = driver;}
-
-    public void enterSalesFormDataAndClickSubmit(String firstName, String lastName, String salesResult){
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(lastNameInputFieldLocator));
-        driver.findElement(firstNameInputFieldLocator).click();
-        driver.findElement(firstNameInputFieldLocator).sendKeys(firstName);
-        driver.findElement(lastNameInputFieldLocator).click();
-        driver.findElement(lastNameInputFieldLocator).sendKeys(lastName);
-        driver.findElement(salesTargetDropMenu).click();
-        driver.findElement(selectSalesTargetPrice).click();
-        driver.findElement(salesResultField).click();
-        driver.findElement(salesResultField).sendKeys(salesResult);
-        driver.findElement(submitButton).click();
+    public void enterSalesFormDataAndClickSubmit(String firstName, String lastName, String salesResult) {
+        new WebDriverWait(getDriver(), timeout).until(ExpectedConditions.elementToBeClickable(lastNameInputFieldLocator));
+        getDriver().findElement(firstNameInputFieldLocator).click();
+        getDriver().findElement(firstNameInputFieldLocator).sendKeys(firstName);
+        getDriver().findElement(lastNameInputFieldLocator).click();
+        getDriver().findElement(lastNameInputFieldLocator).sendKeys(lastName);
+        getDriver().findElement(salesTargetDropMenu).click();
+        getDriver().findElement(selectSalesTargetPrice).click();
+        getDriver().findElement(salesResultField).click();
+        getDriver().findElement(salesResultField).sendKeys(salesResult);
+        getDriver().findElement(submitButton).click();
     }
 
-    public void checkPerformanceMessage(){
-        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(performanceButton));
-        driver.findElement(performanceButton).click();
+    public void checkPerformanceMessage() {
+        new WebDriverWait(getDriver(), timeout).until(ExpectedConditions.elementToBeClickable(performanceButton));
+        getDriver().findElement(performanceButton).click();
     }
 
-    public void deleteAllSalesEntries(){
-        driver.findElement(deleteAllSalesEntriesButton).click();
+    public void deleteAllSalesEntries() {
+        getDriver().findElement(deleteAllSalesEntriesButton).click();
     }
 }
