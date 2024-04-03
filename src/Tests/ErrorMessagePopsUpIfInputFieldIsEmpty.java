@@ -26,7 +26,7 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty extends LoadTheDriver {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect() {
         currentURL = getDriver().getCurrentUrl();
-        expectedURL = "https://robotsparebinindustries.com/#/";
+        expectedURL = "https://robotsparebinindustries.com/";
         Assert.assertEquals(currentURL, expectedURL);
     }
 
@@ -49,7 +49,8 @@ public class ErrorMessagePopsUpIfInputFieldIsEmpty extends LoadTheDriver {
     @Test(priority = 3)
     public void checkIfErrorMessagesPopsUpIfInputFieldIsEmpty() {
         SalesForm salesForm = new SalesForm();
-        salesForm.enterSalesFormDataAndClickSubmit("", "Dimov", "50000");
+        salesForm.enterSalesFormData("", "Dimov", "50000");
+        salesForm.clickSubmitButton();
 
         Boolean isErrorMessageDisplayed;
         try {

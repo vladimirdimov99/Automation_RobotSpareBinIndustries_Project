@@ -27,7 +27,7 @@ public class DeleteAllSalesEntries extends LoadTheDriver {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect() {
         currentURL = getDriver().getCurrentUrl();
-        expectedURL = "https://robotsparebinindustries.com/#/";
+        expectedURL = "https://robotsparebinindustries.com/";
         Assert.assertEquals(currentURL, expectedURL);
     }
 
@@ -51,13 +51,15 @@ public class DeleteAllSalesEntries extends LoadTheDriver {
     public void enterSalesFormDataAndCheckThePerformanceMessage() {
         SalesForm salesForm = new SalesForm();
         // Check for Positive Result
-        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
-        salesForm.checkPerformanceMessage();
+        salesForm.enterSalesFormData("Vladimir", "Dimov", "50000");
+        salesForm.clickSubmitButton();
+        salesForm.clickShowPerformanceButton();
         performanceMessage = getDriver().findElement(salesForm.performanceMessageLocator).getText();
         Assert.assertEquals(performanceMessage, "A positive result. Well done!");
         // Check for Negative Result
-        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "15000");
-        salesForm.checkPerformanceMessage();
+        salesForm.enterSalesFormData("Vladimir", "Dimov", "15000");
+        salesForm.clickSubmitButton();
+        salesForm.clickShowPerformanceButton();
         performanceMessage = getDriver().findElement(salesForm.performanceMessageLocator).getText();
         Assert.assertEquals(performanceMessage, "Well. It was a nice attempt. I guess?");
     }

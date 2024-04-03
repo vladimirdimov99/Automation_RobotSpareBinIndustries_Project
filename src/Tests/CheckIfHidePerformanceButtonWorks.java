@@ -27,7 +27,7 @@ public class CheckIfHidePerformanceButtonWorks extends LoadTheDriver {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect() {
         currentURL = getDriver().getCurrentUrl();
-        expectedURL = "https://robotsparebinindustries.com/#/";
+        expectedURL = "https://robotsparebinindustries.com/";
         Assert.assertEquals(currentURL, expectedURL);
     }
 
@@ -50,8 +50,9 @@ public class CheckIfHidePerformanceButtonWorks extends LoadTheDriver {
     @Test(priority = 3)
     public void enterSalesFormDataAndCheckPerformanceMessage() {
         SalesForm salesForm = new SalesForm();
-        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "15000");
-        salesForm.checkPerformanceMessage();
+        salesForm.enterSalesFormData("Vladimir", "Dimov", "15000");
+        salesForm.clickSubmitButton();
+        salesForm.clickShowPerformanceButton();
         performanceMessage = getDriver().findElement(salesForm.performanceMessageLocator).getText();
         Assert.assertEquals(performanceMessage, "Well. It was a nice attempt. I guess?");
     }

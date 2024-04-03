@@ -26,7 +26,7 @@ public class SalesSummaryAndSalesResultPanelsAppear extends LoadTheDriver {
     @Test(priority = 1)
     public void checkIfTheWebsiteIsCorrect() {
         currentURL = getDriver().getCurrentUrl();
-        expectedURL = "https://robotsparebinindustries.com/#/";
+        expectedURL = "https://robotsparebinindustries.com/";
         Assert.assertEquals(currentURL, expectedURL);
     }
 
@@ -49,9 +49,10 @@ public class SalesSummaryAndSalesResultPanelsAppear extends LoadTheDriver {
     @Test(priority = 3)
     public void enterSalesFormDataAndClickSubmitButton() {
         SalesForm salesForm = new SalesForm();
-        salesForm.enterSalesFormDataAndClickSubmit("Vladimir", "Dimov", "50000");
+        salesForm.enterSalesFormData("Vladimir", "Dimov", "50000");
+        salesForm.clickSubmitButton();
         currentURL = getDriver().getCurrentUrl();
-        expectedURL = "https://robotsparebinindustries.com/?firstname=Vladimir&lastname=Dimov&salesresult=50000#/";
+        expectedURL = "https://robotsparebinindustries.com/?firstname=Vladimir&lastname=Dimov&salesresult=50000";
         Assert.assertEquals(currentURL, expectedURL);
     }
 
